@@ -1,8 +1,8 @@
 package org.cloudburstmc.protocol.java.v754;
 
 import org.cloudburstmc.protocol.java.JavaPacketHelper;
-import org.cloudburstmc.protocol.java.data.inventory.ContainerType;
 
+import static org.cloudburstmc.protocol.java.data.entity.EntityStatus.*;
 import static org.cloudburstmc.protocol.java.data.entity.EntityType.*;
 import static org.cloudburstmc.protocol.java.data.inventory.ContainerType.*;
 import static org.cloudburstmc.protocol.java.data.world.BlockEntityAction.*;
@@ -165,5 +165,65 @@ public class JavaPacketHelper_v754 extends JavaPacketHelper {
         this.containerTypes.put(21, SMOKER);
         this.containerTypes.put(22, CARTOGRAPHY_TABLE);
         this.containerTypes.put(23, STONECUTTER);
+    }
+
+    @Override
+    protected void registerEntityStatuses() {
+        this.entityStatuses.put(0, TIPPED_ARROW_EMIT_PARTICLES);
+        this.entityStatuses.put(1, RABBIT_JUMP_OR_MINECART_SPAWNER_DELAY_RESET);
+        this.entityStatuses.put(2, LIVING_HURT);
+        this.entityStatuses.put(3, LIVING_DEATH);
+        this.entityStatuses.put(4, ATTACK_ANIMATION);
+        this.entityStatuses.put(6, TAMING_FAILED);
+        this.entityStatuses.put(7, TAMING_SUCCEEDED);
+        this.entityStatuses.put(8, WOLF_SHAKE_WATER);
+        this.entityStatuses.put(9, PLAYER_FINISH_USING_ITEM);
+        this.entityStatuses.put(10, SHEEP_GRAZE_OR_TNT_CART_EXPLODE);
+        this.entityStatuses.put(11, IRON_GOLEM_HOLD_POPPY);
+        this.entityStatuses.put(12, VILLAGER_MATE);
+        this.entityStatuses.put(13, VILLAGER_ANGRY);
+        this.entityStatuses.put(14, VILLAGER_HAPPY);
+        this.entityStatuses.put(15, WITCH_EMIT_PARTICLES);
+        this.entityStatuses.put(16, ZOMBIE_VILLAGER_CURE);
+        this.entityStatuses.put(17, FIREWORK_EXPLODE);
+        this.entityStatuses.put(18, ANIMAL_EMIT_HEARTS);
+        this.entityStatuses.put(19, SQUID_RESET_ROTATION);
+        this.entityStatuses.put(20, MOB_EMIT_SMOKE);
+        this.entityStatuses.put(21, GUARDIAN_MAKE_SOUND);
+        this.entityStatuses.put(22, PLAYER_ENABLE_REDUCED_DEBUG);
+        this.entityStatuses.put(23, PLAYER_DISABLE_REDUCED_DEBUG);
+        this.entityStatuses.put(24, PLAYER_OP_PERMISSION_LEVEL_0);
+        this.entityStatuses.put(25, PLAYER_OP_PERMISSION_LEVEL_1);
+        this.entityStatuses.put(26, PLAYER_OP_PERMISSION_LEVEL_2);
+        this.entityStatuses.put(27, PLAYER_OP_PERMISSION_LEVEL_3);
+        this.entityStatuses.put(28, PLAYER_OP_PERMISSION_LEVEL_4);
+        this.entityStatuses.put(29, LIVING_SHIELD_BLOCK);
+        this.entityStatuses.put(30, LIVING_SHIELD_BREAK);
+        this.entityStatuses.put(31, FISHING_HOOK_PULL_PLAYER);
+        this.entityStatuses.put(32, ARMOR_STAND_HIT);
+        this.entityStatuses.put(33, LIVING_HURT_THORNS);
+        this.entityStatuses.put(34, IRON_GOLEM_EMPTY_HAND);
+        this.entityStatuses.put(35, TOTEM_OF_UNDYING_MAKE_SOUND);
+        this.entityStatuses.put(36, LIVING_DROWN);
+        this.entityStatuses.put(37, LIVING_BURN);
+        this.entityStatuses.put(38, DOLPHIN_HAPPY);
+        this.entityStatuses.put(39, RAVAGER_STUNNED);
+        this.entityStatuses.put(40, OCELOT_TAMING_FAILED);
+        this.entityStatuses.put(41, OCELOT_TAMING_SUCCEEDED);
+        this.entityStatuses.put(42, VILLAGER_SWEAT);
+        this.entityStatuses.put(43, PLAYER_EMIT_CL0UD);
+        this.entityStatuses.put(44, LIVING_HURT_SWEET_BERRY_BUSH);
+        this.entityStatuses.put(45, FOX_EATING);
+        this.entityStatuses.put(46, LIVING_TELEPORT);
+        this.entityStatuses.put(47, LIVING_EQUIPMENT_BREAK_MAIN_HAND);
+        this.entityStatuses.put(48, LIVING_EQUIPMENT_BREAK_OFF_HAND);
+        this.entityStatuses.put(49, LIVING_EQUIPMENT_BREAK_HEAD);
+        this.entityStatuses.put(50, LIVING_EQUIPMENT_BREAK_CHEST);
+        this.entityStatuses.put(51, LIVING_EQUIPMENT_BREAK_LEGS);
+        this.entityStatuses.put(52, LIVING_EQUIPMENT_BREAK_FEET);
+        this.entityStatuses.put(53, HONEY_BLOCK_SLIDE);
+        this.entityStatuses.put(54, HONEY_BLOCK_LAND);
+        this.entityStatuses.put(55, PLAYER_SWAP_SAME_ITEM);
+        this.entityStatuses.put(56, WOLF_SHAKE_WATER_STOP);
     }
 }

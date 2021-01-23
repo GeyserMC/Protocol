@@ -18,6 +18,7 @@ import io.netty.util.internal.logging.InternalLogger;
 import io.netty.util.internal.logging.InternalLoggerFactory;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.kyori.adventure.key.Key;
+import org.cloudburstmc.protocol.java.data.entity.EntityStatus;
 import org.cloudburstmc.protocol.java.data.entity.EntityType;
 import org.cloudburstmc.protocol.java.data.inventory.ItemStack;
 import org.cloudburstmc.protocol.java.data.inventory.ContainerType;
@@ -40,6 +41,7 @@ public abstract class JavaPacketHelper {
     protected final Int2ObjectBiMap<EntityType> entityTypes = new Int2ObjectBiMap<>();
     protected final Int2ObjectBiMap<BlockEntityAction> blockEntityActions = new Int2ObjectBiMap<>();
     protected final Int2ObjectBiMap<ContainerType> containerTypes = new Int2ObjectBiMap<>();
+    protected final Int2ObjectBiMap<EntityStatus> entityStatuses = new Int2ObjectBiMap<>();
 
     protected JavaPacketHelper() {
         this.registerEntityTypes();
@@ -130,6 +132,39 @@ public abstract class JavaPacketHelper {
     public void writeUUID(ByteBuf buffer, UUID uuid) {
         buffer.writeLong(uuid.getMostSignificantBits());
         buffer.writeLong(uuid.getLeastSignificantBits());
+    }
+
+    public Vector3f readVector3f(ByteBuf buffer) {
+        Preconditions.checkNotNull(buffer, "buffer");
+        float x = buffer.readFloatLE();
+        float y = buffer.readFloatLE();
+        float z = buffer.readFloatLE();
+        return Vector3f.from(x, y, z);
+    }
+
+    public void writeVector3f(ByteBuf buffer, Vector3f vector3f) {
+        Preconditions.checkNotNull(buffer, "buffer");
+        Preconditions.checkNotNull(vector3f, "vector3f");
+        buffer.writeFloatLE(vector3f.getX());
+        buffer.writeFloatLE(vector3f.getY());
+        buffer.writeFloatLE(vector3f.getZ());
+    }
+
+    public Vector3i readVector3i(ByteBuf buffer) {
+        Preconditions.checkNotNull(buffer, "buffer");
+        int x = VarInts.readInt(buffer);
+        int y = VarInts.readInt(buffer);
+        int z = VarInts.readInt(buffer);
+
+        return Vector3i.from(x, y, z);
+    }
+
+    public void writeVector3i(ByteBuf buffer, Vector3i vector3i) {
+        Preconditions.checkNotNull(buffer, "buffer");
+        Preconditions.checkNotNull(vector3i, "vector3i");
+        VarInts.writeInt(buffer, vector3i.getX());
+        VarInts.writeInt(buffer, vector3i.getY());
+        VarInts.writeInt(buffer, vector3i.getZ());
     }
 
     public Vector3d readPosition(ByteBuf buffer) {
@@ -357,9 +392,19 @@ public abstract class JavaPacketHelper {
         return this.containerTypes.get(containerId);
     }
 
+    public final int getEntityStatusCode(EntityStatus entityStatus) {
+        return this.entityStatuses.get(entityStatus);
+    }
+
+    public final EntityStatus getEntityStatus(int entityStatusCode) {
+        return this.entityStatuses.get(entityStatusCode);
+    }
+
     protected abstract void registerEntityTypes();
 
     protected abstract void registerBlockEntityActions();
 
     protected abstract void registerContainerTypes();
+
+    protected abstract void registerEntityStatuses();
 }
