@@ -16,12 +16,12 @@ public class EntityEventSerializer_v754 implements JavaPacketSerializer<EntityEv
     @Override
     public void serialize(ByteBuf buffer, JavaPacketHelper helper, EntityEventPacket packet) {
         VarInts.writeInt(buffer, packet.getEntityId());
-        buffer.writeByte(packet.getEventId().ordinal());
+        buffer.writeByte(helper.getEntityEventId(packet.getEventId()));
     }
 
     @Override
     public void deserialize(ByteBuf buffer, JavaPacketHelper helper, EntityEventPacket packet) {
         packet.setEntityId(VarInts.readInt(buffer));
-        packet.setEventId(EntityEventType.values()[buffer.readByte()]);
+        packet.setEventId(helper.getEntityEvent(VarInts.readInt(buffer)));
     }
 }

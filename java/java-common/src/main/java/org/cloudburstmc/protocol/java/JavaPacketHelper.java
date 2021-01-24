@@ -18,6 +18,7 @@ import io.netty.util.internal.logging.InternalLogger;
 import io.netty.util.internal.logging.InternalLoggerFactory;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.kyori.adventure.key.Key;
+import org.cloudburstmc.protocol.java.data.entity.EntityEventType;
 import org.cloudburstmc.protocol.java.data.entity.EntityType;
 import org.cloudburstmc.protocol.java.data.inventory.ItemStack;
 import org.cloudburstmc.protocol.java.data.inventory.ContainerType;
@@ -40,6 +41,7 @@ public abstract class JavaPacketHelper {
     protected final Int2ObjectBiMap<EntityType> entityTypes = new Int2ObjectBiMap<>();
     protected final Int2ObjectBiMap<BlockEntityAction> blockEntityActions = new Int2ObjectBiMap<>();
     protected final Int2ObjectBiMap<ContainerType> containerTypes = new Int2ObjectBiMap<>();
+    protected final Int2ObjectBiMap<EntityEventType> entityEvents = new Int2ObjectBiMap<>();
 
     protected JavaPacketHelper() {
         this.registerEntityTypes();
@@ -357,9 +359,19 @@ public abstract class JavaPacketHelper {
         return this.containerTypes.get(containerId);
     }
 
+    public final int getEntityEventId(EntityEventType entityEventType) {
+        return this.entityEvents.get(entityEventType);
+    }
+
+    public final EntityEventType getEntityEvent(int entityEventId) {
+        return this.entityEvents.get(entityEventId);
+    }
+
     protected abstract void registerEntityTypes();
 
     protected abstract void registerBlockEntityActions();
 
     protected abstract void registerContainerTypes();
+
+    protected abstract void registerEntityEvents();
 }

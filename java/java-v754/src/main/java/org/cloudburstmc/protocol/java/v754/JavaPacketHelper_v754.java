@@ -1,8 +1,8 @@
 package org.cloudburstmc.protocol.java.v754;
 
 import org.cloudburstmc.protocol.java.JavaPacketHelper;
-import org.cloudburstmc.protocol.java.data.inventory.ContainerType;
 
+import static org.cloudburstmc.protocol.java.data.entity.EntityEventType.*;
 import static org.cloudburstmc.protocol.java.data.entity.EntityType.*;
 import static org.cloudburstmc.protocol.java.data.inventory.ContainerType.*;
 import static org.cloudburstmc.protocol.java.data.world.BlockEntityAction.*;
@@ -165,5 +165,65 @@ public class JavaPacketHelper_v754 extends JavaPacketHelper {
         this.containerTypes.put(21, SMOKER);
         this.containerTypes.put(22, CARTOGRAPHY_TABLE);
         this.containerTypes.put(23, STONECUTTER);
+    }
+
+    @Override
+    protected void registerEntityEvents() {
+        this.entityEvents.put(0, TIPPED_ARROW_EMIT_PARTICLES);
+        this.entityEvents.put(1, RABBIT_JUMP_OR_MINECART_SPAWNER_DELAY_RESET);
+        this.entityEvents.put(2, LIVING_HURT);
+        this.entityEvents.put(3, LIVING_DEATH);
+        this.entityEvents.put(4, ATTACK_ANIMATION);
+        this.entityEvents.put(6, TAMEABLE_TAMING_FAILED);
+        this.entityEvents.put(7, TAMEABLE_TAMING_SUCCEEDED);
+        this.entityEvents.put(8, WOLF_SHAKE_WATER);
+        this.entityEvents.put(9, PLAYER_FINISH_USING_ITEM);
+        this.entityEvents.put(10, SHEEP_GRAZE_OR_TNT_CART_EXPLODE);
+        this.entityEvents.put(11, IRON_GOLEM_HOLD_POPPY);
+        this.entityEvents.put(12, VILLAGER_MATE);
+        this.entityEvents.put(13, VILLAGER_ANGRY);
+        this.entityEvents.put(14, VILLAGER_HAPPY);
+        this.entityEvents.put(15, WITCH_EMIT_PARTICLES);
+        this.entityEvents.put(16, ZOMBIE_VILLAGER_CURE);
+        this.entityEvents.put(17, FIREWORK_EXPLODE);
+        this.entityEvents.put(18, ANIMAL_EMIT_HEARTS);
+        this.entityEvents.put(19, SQUID_RESET_ROTATION);
+        this.entityEvents.put(20, MOB_EMIT_SMOKE);
+        this.entityEvents.put(21, GUARDIAN_MAKE_SOUND);
+        this.entityEvents.put(22, PLAYER_ENABLE_REDUCED_DEBUG);
+        this.entityEvents.put(23, PLAYER_DISABLE_REDUCED_DEBUG);
+        this.entityEvents.put(24, PLAYER_OP_PERMISSION_LEVEL_0);
+        this.entityEvents.put(25, PLAYER_OP_PERMISSION_LEVEL_1);
+        this.entityEvents.put(26, PLAYER_OP_PERMISSION_LEVEL_2);
+        this.entityEvents.put(27, PLAYER_OP_PERMISSION_LEVEL_3);
+        this.entityEvents.put(28, PLAYER_OP_PERMISSION_LEVEL_4);
+        this.entityEvents.put(29, LIVING_SHIELD_BLOCK);
+        this.entityEvents.put(30, LIVING_SHIELD_BREAK);
+        this.entityEvents.put(31, FISHING_HOOK_PULL_PLAYER);
+        this.entityEvents.put(32, ARMOR_STAND_HIT);
+        this.entityEvents.put(33, LIVING_HURT_THORNS);
+        this.entityEvents.put(34, IRON_GOLEM_EMPTY_HAND);
+        this.entityEvents.put(35, TOTEM_OF_UNDYING_MAKE_SOUND);
+        this.entityEvents.put(36, LIVING_DROWN);
+        this.entityEvents.put(37, LIVING_BURN);
+        this.entityEvents.put(38, DOLPHIN_HAPPY);
+        this.entityEvents.put(39, RAVAGER_STUNNED);
+        this.entityEvents.put(40, OCELOT_TAMING_FAILED);
+        this.entityEvents.put(41, OCELOT_TAMING_SUCCEEDED);
+        this.entityEvents.put(42, VILLAGER_SWEAT);
+        this.entityEvents.put(43, PLAYER_EMIT_CLOUD);
+        this.entityEvents.put(44, LIVING_HURT_SWEET_BERRY_BUSH);
+        this.entityEvents.put(45, FOX_EATING);
+        this.entityEvents.put(46, LIVING_TELEPORT);
+        this.entityEvents.put(47, LIVING_EQUIPMENT_BREAK_MAIN_HAND);
+        this.entityEvents.put(48, LIVING_EQUIPMENT_BREAK_OFF_HAND);
+        this.entityEvents.put(49, LIVING_EQUIPMENT_BREAK_HEAD);
+        this.entityEvents.put(50, LIVING_EQUIPMENT_BREAK_CHEST);
+        this.entityEvents.put(51, LIVING_EQUIPMENT_BREAK_LEGS);
+        this.entityEvents.put(52, LIVING_EQUIPMENT_BREAK_FEET);
+        this.entityEvents.put(53, HONEY_BLOCK_SLIDE);
+        this.entityEvents.put(54, HONEY_BLOCK_LAND);
+        this.entityEvents.put(55, PLAYER_SWAP_SAME_ITEM);
+        this.entityEvents.put(56, WOLF_SHAKE_WATER_STOP);
     }
 }
