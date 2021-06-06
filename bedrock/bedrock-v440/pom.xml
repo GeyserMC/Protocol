@@ -9,12 +9,12 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>bedrock-v422</artifactId>
+    <artifactId>bedrock-v440</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>com.nukkitx.protocol</groupId>
-            <artifactId>bedrock-v419</artifactId>
+            <artifactId>bedrock-v431</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
