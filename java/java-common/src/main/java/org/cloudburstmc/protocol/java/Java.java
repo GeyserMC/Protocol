@@ -2,12 +2,12 @@ package org.cloudburstmc.protocol.java;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.nukkitx.protocol.MinecraftInterface;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.EventLoopGroup;
 import lombok.Getter;
 import lombok.Setter;
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
+import org.cloudburstmc.protocol.common.MinecraftInterface;
 import org.cloudburstmc.protocol.java.data.profile.GameProfile;
 import org.cloudburstmc.protocol.java.data.profile.property.PropertyMap;
 import org.cloudburstmc.protocol.java.util.json.GameProfileSerializer;

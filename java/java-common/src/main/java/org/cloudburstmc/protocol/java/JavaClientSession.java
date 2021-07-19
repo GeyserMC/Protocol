@@ -1,26 +1,22 @@
 package org.cloudburstmc.protocol.java;
 
-import com.nukkitx.protocol.MinecraftSession;
 import io.netty.channel.Channel;
 import io.netty.channel.EventLoop;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.cloudburstmc.protocol.common.MinecraftSession;
 import org.cloudburstmc.protocol.java.auth.MojangAuthHandler;
 import org.cloudburstmc.protocol.java.auth.SessionsHandler;
 import org.cloudburstmc.protocol.java.data.auth.AuthData;
 import org.cloudburstmc.protocol.java.data.profile.GameProfile;
 import org.cloudburstmc.protocol.java.data.profile.property.PropertyMap;
-import org.cloudburstmc.protocol.java.handler.JavaLoginPacketHandler;
-import org.cloudburstmc.protocol.java.handler.JavaPacketHandler;
+import org.cloudburstmc.protocol.java.packet.handler.JavaLoginPacketHandler;
+import org.cloudburstmc.protocol.java.packet.handler.JavaPacketHandler;
 import org.cloudburstmc.protocol.java.packet.State;
 import org.cloudburstmc.protocol.java.packet.handshake.HandshakingPacket;
-import org.cloudburstmc.protocol.java.packet.login.EncryptionRequestPacket;
-import org.cloudburstmc.protocol.java.packet.login.EncryptionResponsePacket;
-import org.cloudburstmc.protocol.java.packet.login.LoginStartPacket;
-import org.cloudburstmc.protocol.java.packet.login.LoginSuccessPacket;
-import org.cloudburstmc.protocol.java.packet.login.SetCompressionPacket;
+import org.cloudburstmc.protocol.java.packet.login.*;
 import org.cloudburstmc.protocol.java.util.EncryptionUtils;
 
 import javax.crypto.KeyGenerator;

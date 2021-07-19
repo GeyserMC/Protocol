@@ -2,7 +2,7 @@ package org.cloudburstmc.protocol.java;
 
 import com.nukkitx.network.util.Bootstraps;
 import com.nukkitx.network.util.EventLoops;
-import com.nukkitx.network.util.Preconditions;
+import org.cloudburstmc.protocol.common.util.Preconditions;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.epoll.Epoll;
@@ -48,8 +48,9 @@ public class JavaServer extends Java {
         super(bindAddress, eventLoopGroup);
     }
 
+    //TODO: adapt this to new
     @Override
-    public CompletableFuture<Void> bind() {
+    public CompletableFuture<Void> bind(InetSocketAddress address) {
         Preconditions.checkNotNull(this.eventLoopGroup, "Event loop group was null");
         ChannelFuture future = new ServerBootstrap()
                 .channel(EventLoops.getChannelType().getServerSocketChannel())

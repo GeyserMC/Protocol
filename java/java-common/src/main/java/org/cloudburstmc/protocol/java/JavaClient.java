@@ -2,7 +2,7 @@ package org.cloudburstmc.protocol.java;
 
 import com.nukkitx.network.util.Bootstraps;
 import com.nukkitx.network.util.EventLoops;
-import com.nukkitx.network.util.Preconditions;
+import org.cloudburstmc.protocol.common.util.Preconditions;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
@@ -11,20 +11,22 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import lombok.Getter;
 import lombok.Setter;
-import org.cloudburstmc.protocol.java.handler.JavaStatusPacketHandler;
-import org.cloudburstmc.protocol.java.pipeline.PacketDecoder;
-import org.cloudburstmc.protocol.java.pipeline.PacketEncoder;
-import org.cloudburstmc.protocol.java.pipeline.VarInt21FrameDecoder;
-import org.cloudburstmc.protocol.java.pipeline.VarInt21LengthFieldPrepender;
+import org.cloudburstmc.protocol.common.PacketSignal;
+import org.cloudburstmc.protocol.java.packet.handler.JavaStatusPacketHandler;
 import org.cloudburstmc.protocol.java.packet.State;
 import org.cloudburstmc.protocol.java.packet.handshake.HandshakingPacket;
 import org.cloudburstmc.protocol.java.packet.status.StatusRequestPacket;
 import org.cloudburstmc.protocol.java.packet.status.StatusResponsePacket;
 import org.cloudburstmc.protocol.java.packet.type.JavaPacketType;
+import org.cloudburstmc.protocol.java.pipeline.PacketDecoder;
+import org.cloudburstmc.protocol.java.pipeline.PacketEncoder;
+import org.cloudburstmc.protocol.java.pipeline.VarInt21FrameDecoder;
+import org.cloudburstmc.protocol.java.pipeline.VarInt21LengthFieldPrepender;
 
 import javax.annotation.Nullable;
 import java.net.InetSocketAddress;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
 import java.util.function.Consumer;
 
 @Getter
@@ -80,8 +82,9 @@ public class JavaClient extends Java {
         }
     }
 
+    //TODO: adapt this to new
     @Override
-    public CompletableFuture<Void> bind() {
+    public Future<Void> bind(InetSocketAddress address) {
         Preconditions.checkNotNull(this.eventLoopGroup, "Event loop group was null");
         this.bootstrap = new Bootstrap()
                 .channel(EventLoops.getChannelType().getSocketChannel())
@@ -129,10 +132,10 @@ public class JavaClient extends Java {
             this.session.sendPacket(new StatusRequestPacket());
             this.session.setPacketHandler(new JavaStatusPacketHandler() {
                 @Override
-                public boolean handle(StatusResponsePacket packet) {
+                public PacketSignal handle(StatusResponsePacket packet) {
                     response.accept(packet);
                     pongFuture.complete(packet.getResponse());
-                    return true;
+                    return PacketSignal.HANDLED;
                 }
             });
         }));

@@ -1,12 +1,12 @@
 package org.cloudburstmc.protocol.java.pipeline;
 
-import com.nukkitx.network.VarInts;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 import io.netty.util.internal.logging.InternalLogger;
 import io.netty.util.internal.logging.InternalLoggerFactory;
 import lombok.AllArgsConstructor;
+import org.cloudburstmc.protocol.common.util.VarInts;
 import org.cloudburstmc.protocol.java.JavaSession;
 import org.cloudburstmc.protocol.java.packet.type.JavaPacketType;
 
@@ -26,7 +26,7 @@ public class PacketDecoder extends ByteToMessageDecoder {
         }
         int packetId = VarInts.readUnsignedInt(in);
         try {
-            out.add(this.session.getPacketCodec().getCodec(this.session.getProtocolState()).tryDecode(in, packetId, this.session, this.direction));
+            out.add(this.session.getPacketCodec().getCodec(this.session.getProtocolState()).tryDecode(in, packetId, direction));
         } catch (Throwable ex) {
             log.error("Error decoding packet: {}", packetId, ex);
         }

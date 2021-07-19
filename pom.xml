@@ -4,31 +4,30 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.nukkitx.protocol</groupId>
+    <groupId>org.cloudburstmc.protocol</groupId>
     <artifactId>parent</artifactId>
     <packaging>pom</packaging>
-    <version>2.8.1-SNAPSHOT</version>
+    <version>3.0.0-SNAPSHOT</version>
     <name>Protocol Parent</name>
     <description>A protocol library for Minecraft</description>
-    <url>https://github.com/NukkitX/Protocol</url>
+    <url>https://github.com/CloudburstMC/Protocol</url>
     <inceptionYear>2018</inceptionYear>
 
     <modules>
         <module>common</module>
         <module>bedrock</module>
-        <module>java</module>
     </modules>
 
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
 
     <organization>
-        <name>NukkitX</name>
+        <name>CloudburstMC</name>
         <url>https://github.com/CloudburstMC</url>
     </organization>
 
@@ -53,7 +52,8 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.build.timestamp.format>HHmm-ddMMyyyy</maven.build.timestamp.format>
-        <network.version>1.6.26-SNAPSHOT</network.version>
+        <netty.version>4.1.51.Final</netty.version>
+        <network.version>1.6.27-SNAPSHOT</network.version>
     </properties>
 
     <repositories>
@@ -76,10 +76,6 @@
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
-        </repository>
-        <repository>
-            <id>sonatype-oss</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
         </repository>
     </repositories>
 

@@ -4,7 +4,6 @@ import com.google.common.base.Preconditions;
 import com.nukkitx.natives.aes.AesFactory;
 import com.nukkitx.natives.util.Natives;
 import com.nukkitx.network.util.DisconnectReason;
-import com.nukkitx.protocol.MinecraftSession;
 import io.netty.channel.*;
 import io.netty.util.internal.PlatformDependent;
 import io.netty.util.internal.logging.InternalLogger;
@@ -13,9 +12,12 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import net.kyori.adventure.text.Component;
+import org.cloudburstmc.protocol.common.MinecraftSession;
+import org.cloudburstmc.protocol.java.codec.JavaCodec;
 import org.cloudburstmc.protocol.java.data.profile.GameProfile;
-import org.cloudburstmc.protocol.java.handler.JavaPacketHandler;
+import org.cloudburstmc.protocol.java.packet.JavaPacket;
 import org.cloudburstmc.protocol.java.packet.State;
+import org.cloudburstmc.protocol.java.packet.handler.JavaPacketHandler;
 import org.cloudburstmc.protocol.java.packet.play.clientbound.DisconnectPacket;
 import org.cloudburstmc.protocol.java.packet.type.JavaPacketType;
 import org.cloudburstmc.protocol.java.pipeline.PacketCompressor;
@@ -48,7 +50,7 @@ public abstract class JavaSession extends SimpleChannelInboundHandler<JavaPacket
     private final Queue<JavaPacket<?>> queuedPackets = PlatformDependent.newMpscQueue();
     private final EventLoop eventLoop;
     protected final InetSocketAddress address;
-    protected JavaPacketCodec packetCodec = null;
+    protected JavaCodec packetCodec = null;
     protected Channel channel;
     private SecretKey agreedKey;
     private Cipher encryptionCipher = null;
@@ -73,7 +75,7 @@ public abstract class JavaSession extends SimpleChannelInboundHandler<JavaPacket
         outgoingClientbound = this instanceof JavaServerSession;
     }
 
-    public void setPacketCodec(JavaPacketCodec packetCodec) {
+    public void setPacketCodec(JavaCodec packetCodec) {
         this.packetCodec = packetCodec;
     }
 

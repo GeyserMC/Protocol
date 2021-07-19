@@ -8,12 +8,12 @@
 
     <parent>
         <artifactId>parent</artifactId>
-        <groupId>com.nukkitx.protocol</groupId>
-        <version>2.8.1-SNAPSHOT</version>
+        <groupId>org.cloudburstmc.protocol</groupId>
+        <version>3.0.0-SNAPSHOT</version>
     </parent>
 
     <modules>
         <module>java-common</module>
-        <module>java-v754</module>
+        <module>java-codec</module>
     </modules>
 </project>

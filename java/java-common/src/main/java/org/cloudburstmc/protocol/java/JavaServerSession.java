@@ -1,17 +1,17 @@
 package org.cloudburstmc.protocol.java;
 
-import com.nukkitx.protocol.MinecraftServerSession;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.EventLoop;
 import lombok.AllArgsConstructor;
+import org.cloudburstmc.protocol.common.MinecraftServerSession;
 import org.cloudburstmc.protocol.java.auth.SessionsHandler;
 import org.cloudburstmc.protocol.java.data.profile.GameProfile;
 import org.cloudburstmc.protocol.java.exception.ProfileException;
-import org.cloudburstmc.protocol.java.handler.JavaHandshakePacketHandler;
-import org.cloudburstmc.protocol.java.handler.JavaLoginPacketHandler;
-import org.cloudburstmc.protocol.java.handler.JavaPacketHandler;
-import org.cloudburstmc.protocol.java.handler.JavaStatusPacketHandler;
+import org.cloudburstmc.protocol.java.packet.handler.JavaHandshakePacketHandler;
+import org.cloudburstmc.protocol.java.packet.handler.JavaLoginPacketHandler;
+import org.cloudburstmc.protocol.java.packet.handler.JavaPacketHandler;
+import org.cloudburstmc.protocol.java.packet.handler.JavaStatusPacketHandler;
 import org.cloudburstmc.protocol.java.packet.State;
 import org.cloudburstmc.protocol.java.packet.handshake.HandshakingPacket;
 import org.cloudburstmc.protocol.java.packet.login.*;
