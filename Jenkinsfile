@@ -10,8 +10,9 @@ pipeline {
     stages {
         stage ('Build') {
             when { not { anyOf {
-                branch 'master'
-                branch 'develop'
+                branch "master"
+                branch "develop"
+                branch "3.0"
             }}}
 
             steps {
@@ -21,8 +22,9 @@ pipeline {
         stage ('Deploy') {
             when {
                 anyOf {
-                    branch 'master'
-                    branch 'develop'
+                    branch "master"
+                    branch "develop"
+                    branch "3.0"
                 }
             }
 
@@ -38,15 +40,15 @@ pipeline {
                         rtMavenResolver(
                                 id: "maven-resolver",
                                 serverId: "opencollab-artifactory",
-                                releaseRepo: "release",
-                                snapshotRepo: "snapshot"
+                                releaseRepo: "maven-deploy-release",
+                                snapshotRepo: "maven-deploy-snapshot"
                         )
                     }
                 }
 
                 stage('Release') {
                     when {
-                        branch 'master'
+                        branch "master"
                     }
 
                     steps {
@@ -63,7 +65,10 @@ pipeline {
 
                 stage('Snapshot') {
                     when {
-                        branch 'develop'
+                        anyOf {
+                            branch "develop"
+                            branch "3.0"
+                        }
                     }
                     steps {
                         rtMavenRun(
