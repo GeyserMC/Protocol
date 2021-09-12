@@ -281,14 +281,13 @@ public final class JavaCodec {
                         largestId = info.getId();
                     }
                 }
-                checkArgument(largestId > -1, "Must have at least one packet registered");
+
                 JavaPacketDefinition<? extends JavaPacket<?>>[] clientboundPacketsById = new JavaPacketDefinition[largestId + 1];
 
                 for (JavaPacketDefinition<? extends JavaPacket<?>> info : clientboundPackets.values()) {
                     clientboundPacketsById[info.getId()] = info;
                 }
 
-                largestId = -1;
                 for (JavaPacketDefinition<? extends JavaPacket<?>> info : serverboundPackets.values()) {
                     if (info.getId() > largestId) {
                         largestId = info.getId();

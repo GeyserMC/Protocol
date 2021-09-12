@@ -11,7 +11,7 @@ import org.cloudburstmc.protocol.java.packet.type.JavaPlayPacketType;
 
 @Data
 @EqualsAndHashCode(doNotUseGetters = true, callSuper = false)
-public class PlayerAbilitiesPacket implements BidirectionalJavaPacket<JavaPlayPacketHandler> {
+public class PlayerAbilitiesPacket extends BidirectionalJavaPacket<JavaPlayPacketHandler> {
     private boolean flying;
 
     @DirectionAvailability(JavaPacketType.Direction.CLIENTBOUND)

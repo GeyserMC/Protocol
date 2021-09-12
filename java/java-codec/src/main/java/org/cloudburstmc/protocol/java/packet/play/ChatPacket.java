@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @Data
 @EqualsAndHashCode(doNotUseGetters = true, callSuper = false)
-public class ChatPacket implements BidirectionalJavaPacket<JavaPlayPacketHandler> {
+public class ChatPacket extends BidirectionalJavaPacket<JavaPlayPacketHandler> {
     private Component message;
 
     @DirectionAvailability(JavaPacketType.Direction.CLIENTBOUND)

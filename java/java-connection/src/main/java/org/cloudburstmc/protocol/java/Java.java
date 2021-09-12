@@ -2,8 +2,11 @@ package org.cloudburstmc.protocol.java;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import io.netty.bootstrap.AbstractBootstrap;
 import io.netty.bootstrap.Bootstrap;
+import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.EventLoopGroup;
+import io.netty.util.concurrent.Future;
 import lombok.Getter;
 import lombok.Setter;
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
@@ -17,10 +20,11 @@ import org.cloudburstmc.protocol.java.util.json.UUIDTypeAdapter;
 import java.net.InetSocketAddress;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
 
 @Getter
 @Setter
-public abstract class Java implements MinecraftInterface {
+public abstract class Java<T extends AbstractBootstrap<?, ?>> implements MinecraftInterface {
     public static final Gson GSON = GsonComponentSerializer.gson()
             .populator()
             .apply(new GsonBuilder()
@@ -31,14 +35,13 @@ public abstract class Java implements MinecraftInterface {
             .setPrettyPrinting()
             .create();
 
-    protected final InetSocketAddress bindAddress;
-    final EventLoopGroup eventLoopGroup;
-    private final Bootstrap bootstrap;
+    protected InetSocketAddress bindAddress;
+    protected final EventLoopGroup eventLoopGroup;
+    protected final Supplier<T> bootstrapSupplier;
     protected boolean handleLogin = true;
 
-    Java(InetSocketAddress bindAddress, EventLoopGroup eventLoopGroup) {
-        this.bindAddress = bindAddress;
-        this.bootstrap = new Bootstrap();
+    Java(EventLoopGroup eventLoopGroup, Supplier<T> bootstrapSupplier) {
+        this.bootstrapSupplier = bootstrapSupplier;
         this.eventLoopGroup = eventLoopGroup;
         eventLoopGroup.scheduleAtFixedRate(this::onTick, 50, 50, TimeUnit.MILLISECONDS);
     }
@@ -49,9 +52,19 @@ public abstract class Java implements MinecraftInterface {
         return this.bindAddress;
     }
 
-    public Bootstrap getBootstrap() {
-        return this.bootstrap;
+    public Future<Void> bind(InetSocketAddress address) {
+        return this.bind(address, f -> {});
     }
+
+    public Future<Void> bind(InetSocketAddress address, ChannelFutureListener listener) {
+        if (this.bindAddress != null) {
+            throw new IllegalStateException("Already bind");
+        }
+        this.bindAddress = address;
+        return this.doBind(address, listener);
+    }
+
+    protected abstract Future<Void> doBind(InetSocketAddress address, ChannelFutureListener listener);
 
     public abstract void close();
 }

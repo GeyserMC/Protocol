@@ -1,16 +1,17 @@
 package org.cloudburstmc.protocol.java;
 
-import com.nukkitx.network.util.Bootstraps;
 import com.nukkitx.network.util.EventLoops;
-import org.cloudburstmc.protocol.common.util.Preconditions;
+import io.netty.util.concurrent.DefaultPromise;
+import io.netty.util.concurrent.Future;
+import io.netty.util.concurrent.ImmediateEventExecutor;
+import io.netty.util.concurrent.Promise;
+import io.netty.util.concurrent.PromiseCombiner;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
-import io.netty.channel.epoll.Epoll;
-import io.netty.channel.epoll.EpollServerSocketChannel;
-import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import lombok.Getter;
 import lombok.Setter;
+import org.cloudburstmc.protocol.java.data.Pong;
 import org.cloudburstmc.protocol.java.packet.type.JavaPacketType;
 import org.cloudburstmc.protocol.java.pipeline.PacketDecoder;
 import org.cloudburstmc.protocol.java.pipeline.PacketEncoder;
@@ -21,15 +22,17 @@ import java.net.InetSocketAddress;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Set;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
 @Getter
 @Setter
-public class JavaServer extends Java {
+public class JavaServer extends Java<ServerBootstrap> {
     final Set<JavaServerSession> sessions = Collections.newSetFromMap(new ConcurrentHashMap<>());
     private JavaEventHandler<JavaServerSession> handler;
+
+    private final int maxThreads;
+
     private boolean closed = false;
     private boolean onlineMode = true;
     private boolean handleKeepalive = true;
@@ -38,23 +41,32 @@ public class JavaServer extends Java {
      * Comparable to the handleLogin option, but then for the 'status' stage.
      * This handles the 'status' stage for you and sends the given pong to the client.
      */
-    protected Function<JavaServerSession, JavaPong> pong;
+    protected Function<JavaServerSession, Pong> pong;
 
-    public JavaServer(InetSocketAddress bindAddress) {
-        super(bindAddress, EventLoops.commonGroup());
+    public JavaServer() {
+        this(1, EventLoops.commonGroup());
     }
 
-    public JavaServer(InetSocketAddress bindAddress, EventLoopGroup eventLoopGroup) {
-        super(bindAddress, eventLoopGroup);
+    public JavaServer(int maxThreads) {
+        this(maxThreads, EventLoops.commonGroup());
     }
 
-    //TODO: adapt this to new
+    public JavaServer(EventLoopGroup eventLoopGroup) {
+        this(1, eventLoopGroup);
+    }
+
+    public JavaServer(int maxThreads, EventLoopGroup eventLoopGroup) {
+        super(eventLoopGroup, ServerBootstrap::new);
+
+        this.maxThreads = maxThreads;
+    }
+
     @Override
-    public CompletableFuture<Void> bind(InetSocketAddress address) {
-        Preconditions.checkNotNull(this.eventLoopGroup, "Event loop group was null");
-        ChannelFuture future = new ServerBootstrap()
+    public Future<Void> doBind(InetSocketAddress address, ChannelFutureListener listener) {
+        EventLoopGroup networkLoops = EventLoops.newEventLoopGroup(this.maxThreads);
+        ServerBootstrap bootstrap = this.bootstrapSupplier.get()
                 .channel(EventLoops.getChannelType().getServerSocketChannel())
-                .group(this.eventLoopGroup)
+                .group(this.eventLoopGroup, networkLoops)
                 .localAddress(this.getBindAddress())
                 .childOption(ChannelOption.TCP_NODELAY, true)
                 .childHandler(new ChannelInitializer<Channel>() {
@@ -71,8 +83,18 @@ public class JavaServer extends Java {
                 JavaServer.this.sessions.add(session);
                 JavaServer.this.handler.onSessionCreation(session);
             }
-        }).bind().syncUninterruptibly();
-        return Bootstraps.allOf(future);
+        });
+
+        PromiseCombiner combiner = new PromiseCombiner(ImmediateEventExecutor.INSTANCE);
+        for (int i = 0; i < this.maxThreads; i++) {
+            ChannelFuture channelFuture = bootstrap.clone().bind();
+            channelFuture.addListener(listener);
+            combiner.add(channelFuture);
+        }
+
+        Promise<Void> promise = new DefaultPromise<>(ImmediateEventExecutor.INSTANCE);
+        combiner.finish(promise);
+        return promise;
     }
 
     @Override

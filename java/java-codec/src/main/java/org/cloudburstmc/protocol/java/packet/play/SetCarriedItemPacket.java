@@ -10,7 +10,7 @@ import org.cloudburstmc.protocol.java.packet.type.JavaPlayPacketType;
 
 @Data
 @EqualsAndHashCode(doNotUseGetters = true, callSuper = false)
-public class SetCarriedItemPacket implements BidirectionalJavaPacket<JavaPlayPacketHandler> {
+public class SetCarriedItemPacket extends BidirectionalJavaPacket<JavaPlayPacketHandler> {
     private int slot;
 
     @Override

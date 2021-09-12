@@ -164,8 +164,8 @@ public abstract class JavaSession extends SimpleChannelInboundHandler<JavaPacket
                     "Cannot send a " + direction.name().toLowerCase(Locale.ROOT));
         }
 
-        // Verify that the packet ID exists.
-        this.packetCodec.getCodec(this.protocolState).getId(packet, outgoingClientbound);
+        // Verify that the packet ID exists. TODO: Is this how it should be handled now?
+        this.packetCodec.getCodec(this.protocolState).getPacketDefinition(packet.getClass(), outgoingClientbound);
     }
 
     @Override

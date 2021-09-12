@@ -1,4 +1,4 @@
-package org.cloudburstmc.protocol.java;
+package org.cloudburstmc.protocol.java.data;
 
 import lombok.*;
 import net.kyori.adventure.text.Component;
@@ -6,7 +6,7 @@ import org.cloudburstmc.protocol.java.data.profile.GameProfile;
 
 @Data
 @NoArgsConstructor
-public class JavaPong {
+public class Pong {
     private Component description;
 
     private Players players;

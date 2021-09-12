@@ -1,8 +1,9 @@
 package org.cloudburstmc.protocol.java.packet.play.clientbound;
 
-import lombok.AllArgsConstructor;
+import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.cloudburstmc.protocol.common.PacketSignal;
 import org.cloudburstmc.protocol.java.packet.JavaPacket;
 import org.cloudburstmc.protocol.java.packet.handler.JavaPlayPacketHandler;
@@ -10,7 +11,7 @@ import org.cloudburstmc.protocol.java.packet.type.JavaPlayPacketType;
 
 @Data
 @EqualsAndHashCode(doNotUseGetters = true, callSuper = false)
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ContainerSetDataPacket implements JavaPacket<JavaPlayPacketHandler> {
     private int containerId;
     private int property;

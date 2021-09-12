@@ -30,7 +30,7 @@ public class PacketEncoder extends MessageToByteEncoder<JavaPacket<?>> {
         int packetId = stateCodec.getPacketDefinition((Class<? extends JavaPacket<?>>) packet.getClass(), clientbound).getId();
         try {
             VarInts.writeUnsignedInt(out, packetId);
-            stateCodec.tryEncode(helper, out, packet, clientbound);
+            stateCodec.tryEncode(stateCodec.createHelper(), out, packet, clientbound);
         } catch (Throwable ex) {
             log.error("Error encoding packet: {}", packetId, ex);
         }

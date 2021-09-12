@@ -11,7 +11,7 @@ import org.cloudburstmc.protocol.java.packet.type.JavaPlayPacketType;
 
 @Data
 @EqualsAndHashCode(doNotUseGetters = true, callSuper = false)
-public class ResourcePackPacket implements BidirectionalJavaPacket<JavaPlayPacketHandler> {
+public class ResourcePackPacket extends BidirectionalJavaPacket<JavaPlayPacketHandler> {
     @DirectionAvailability(JavaPacketType.Direction.CLIENTBOUND)
     private String url;
 

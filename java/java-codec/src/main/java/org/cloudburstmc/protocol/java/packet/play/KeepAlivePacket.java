@@ -10,7 +10,7 @@ import org.cloudburstmc.protocol.java.packet.type.JavaPlayPacketType;
 
 @Data
 @EqualsAndHashCode(doNotUseGetters = true, callSuper = false)
-public class KeepAlivePacket implements BidirectionalJavaPacket<JavaPlayPacketHandler> {
+public class KeepAlivePacket extends BidirectionalJavaPacket<JavaPlayPacketHandler> {
     private long id;
 
     @Override

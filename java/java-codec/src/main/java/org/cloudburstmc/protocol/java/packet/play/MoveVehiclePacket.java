@@ -12,7 +12,7 @@ import org.cloudburstmc.protocol.java.packet.type.JavaPlayPacketType;
 
 @Data
 @EqualsAndHashCode(doNotUseGetters = true, callSuper = false)
-public class MoveVehiclePacket implements BidirectionalJavaPacket<JavaPlayPacketHandler> {
+public class MoveVehiclePacket extends BidirectionalJavaPacket<JavaPlayPacketHandler> {
     private Vector3d position;
     private Vector2f rotation;
 

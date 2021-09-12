@@ -1,6 +1,5 @@
 package org.cloudburstmc.protocol.java.packet.play;
 
-import io.netty.buffer.ByteBuf;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import net.kyori.adventure.key.Key;
@@ -12,9 +11,9 @@ import org.cloudburstmc.protocol.java.packet.type.JavaPlayPacketType;
 
 @Data
 @EqualsAndHashCode(doNotUseGetters = true, callSuper = false)
-public class CustomPayloadPacket implements BidirectionalJavaPacket<JavaPlayPacketHandler> {
+public class CustomPayloadPacket extends BidirectionalJavaPacket<JavaPlayPacketHandler> {
     private Key channel;
-    private ByteBuf buffer;
+    private byte[] data;
 
     @Override
     public PacketSignal handle(JavaPlayPacketHandler handler) {

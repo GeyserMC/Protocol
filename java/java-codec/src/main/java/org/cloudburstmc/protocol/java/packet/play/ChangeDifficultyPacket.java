@@ -12,7 +12,7 @@ import org.cloudburstmc.protocol.java.packet.type.JavaPlayPacketType;
 
 @Data
 @EqualsAndHashCode(doNotUseGetters = true, callSuper = false)
-public class ChangeDifficultyPacket implements BidirectionalJavaPacket<JavaPlayPacketHandler> {
+public class ChangeDifficultyPacket extends BidirectionalJavaPacket<JavaPlayPacketHandler> {
     private Difficulty difficulty;
 
     @DirectionAvailability(JavaPacketType.Direction.CLIENTBOUND)

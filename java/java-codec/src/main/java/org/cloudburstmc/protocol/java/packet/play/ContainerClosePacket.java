@@ -10,7 +10,7 @@ import org.cloudburstmc.protocol.java.packet.type.JavaPlayPacketType;
 
 @Data
 @EqualsAndHashCode(doNotUseGetters = true, callSuper = false)
-public class ContainerClosePacket implements BidirectionalJavaPacket<JavaPlayPacketHandler> {
+public class ContainerClosePacket extends BidirectionalJavaPacket<JavaPlayPacketHandler> {
     private int containerId;
 
     @Override

@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.cloudburstmc.protocol.common.MinecraftServerSession;
 import org.cloudburstmc.protocol.common.PacketSignal;
 import org.cloudburstmc.protocol.java.auth.SessionsHandler;
+import org.cloudburstmc.protocol.java.data.Pong;
 import org.cloudburstmc.protocol.java.data.profile.GameProfile;
 import org.cloudburstmc.protocol.java.exception.ProfileException;
 import org.cloudburstmc.protocol.java.packet.JavaPacket;
@@ -52,7 +53,7 @@ public class JavaServerSession extends JavaSession implements MinecraftServerSes
         }
     }
 
-    protected void handleStatus(Function<JavaServerSession, JavaPong> response) {
+    protected void handleStatus(Function<JavaServerSession, Pong> response) {
         setProtocolState(State.STATUS);
         setPacketHandler(new StatusPacketHandler(this, response));
     }
@@ -150,7 +151,7 @@ public class JavaServerSession extends JavaSession implements MinecraftServerSes
     @AllArgsConstructor
     private static final class StatusPacketHandler implements JavaStatusPacketHandler, JavaHandshakePacketHandler {
         private final JavaServerSession session;
-        private final Function<JavaServerSession, JavaPong> pong;
+        private final Function<JavaServerSession, Pong> pong;
 
         @Override
         public PacketSignal handle(StatusRequestPacket packet) {

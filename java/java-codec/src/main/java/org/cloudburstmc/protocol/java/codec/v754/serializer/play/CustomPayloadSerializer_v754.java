@@ -15,12 +15,16 @@ public class CustomPayloadSerializer_v754 extends BidirectionalJavaPacketSeriali
     @Override
     public void serialize(ByteBuf buffer, JavaCodecHelper helper, CustomPayloadPacket packet) throws PacketSerializeException {
         helper.writeKey(buffer, packet.getChannel());
-        buffer.writeBytes(packet.getBuffer());
+        buffer.writeBytes(packet.getData());
     }
 
     @Override
     public void deserialize(ByteBuf buffer, JavaCodecHelper helper, CustomPayloadPacket packet) throws PacketSerializeException {
         packet.setChannel(helper.readKey(buffer));
-        packet.setBuffer(buffer.readBytes(buffer.readableBytes()).retain());
+
+        byte[] data = new byte[buffer.readableBytes()];
+        buffer.readBytes(data);
+
+        packet.setData(data);
     }
 }

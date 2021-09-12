@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 import org.cloudburstmc.protocol.java.codec.JavaCodecHelper;
 import org.cloudburstmc.protocol.java.codec.JavaPacketSerializer;
-import org.cloudburstmc.protocol.java.JavaPong;
+import org.cloudburstmc.protocol.java.data.Pong;
 import org.cloudburstmc.protocol.java.packet.status.StatusResponsePacket;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -20,6 +20,6 @@ public class StatusResponseSerializer_v754 implements JavaPacketSerializer<Statu
 
     @Override
     public void deserialize(ByteBuf buffer, JavaCodecHelper helper, StatusResponsePacket packet) {
-        packet.setResponse(GsonComponentSerializer.gson().serializer().fromJson(helper.readString(buffer), JavaPong.class));
+        packet.setResponse(GsonComponentSerializer.gson().serializer().fromJson(helper.readString(buffer), Pong.class));
     }
 }

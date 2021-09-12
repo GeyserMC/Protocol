@@ -3,7 +3,7 @@ package org.cloudburstmc.protocol.java.codec.v754.serializer.play;
 import io.netty.buffer.ByteBuf;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import net.kyori.adventure.text.serializer.plain.PlainComponentSerializer;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.cloudburstmc.protocol.java.codec.BidirectionalJavaPacketSerializer;
 import org.cloudburstmc.protocol.java.codec.JavaCodecHelper;
 import org.cloudburstmc.protocol.java.data.text.ChatPosition;
@@ -29,11 +29,11 @@ public class ChatSerializer_v754 extends BidirectionalJavaPacketSerializer<ChatP
 
     @Override
     public void serializeServerbound(ByteBuf buffer, JavaCodecHelper helper, ChatPacket packet) {
-        helper.writeString(buffer, PlainComponentSerializer.plain().serialize(packet.getMessage()));
+        helper.writeString(buffer, PlainTextComponentSerializer.plainText().serialize(packet.getMessage()));
     }
 
     @Override
     public void deserializeServerbound(ByteBuf buffer, JavaCodecHelper helper, ChatPacket packet) {
-        packet.setMessage(PlainComponentSerializer.plain().deserialize(helper.readString(buffer)));
+        packet.setMessage(PlainTextComponentSerializer.plainText().deserialize(helper.readString(buffer)));
     }
 }
