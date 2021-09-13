@@ -35,6 +35,8 @@ import org.cloudburstmc.protocol.java.data.profile.property.PropertyMap;
 import org.cloudburstmc.protocol.java.data.world.BlockEntityAction;
 import org.cloudburstmc.protocol.java.data.world.Particle;
 import org.cloudburstmc.protocol.java.data.world.ParticleType;
+import org.cloudburstmc.protocol.java.data.world.PositionSource;
+import org.cloudburstmc.protocol.java.data.world.PositionSourceType;
 
 import javax.annotation.Nullable;
 import java.io.IOException;
@@ -55,6 +57,7 @@ public abstract class BaseJavaCodecHelper implements JavaCodecHelper {
     protected final TypeMap<ParticleType> particles;
     protected final TypeMap<MobEffectType> mobEffects;
     private final BiMap<Key, RecipeType<? extends Recipe>> recipeTypes = HashBiMap.create(); //TODO: change this so we can remove the registerRecipeTypes() method
+    private final BiMap<Key, PositionSourceType<?>> positionSourceTypes = HashBiMap.create(); //TODO: change this so we can remove the registerPositionSourceTypes() method
 
     @Override
     public int readVarInt(ByteBuf buffer) {
@@ -424,6 +427,16 @@ public abstract class BaseJavaCodecHelper implements JavaCodecHelper {
         buffer.writeLong((long) (vector3i.getX() & 0x3FFFFFF) << 38 | (long) (vector3i.getZ() & 0x3FFFFFF) << 12 | (long) (vector3i.getY() & 0xFFF));
     }
 
+    @Override
+    public <T> PositionSource<T> readPositionSource(ByteBuf buffer) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <T> void writePositionSource(ByteBuf buffer, PositionSource<T> positionSource) {
+        throw new UnsupportedOperationException();
+    }
+
     /*
         Helper array serialization
      */
@@ -656,8 +669,17 @@ public abstract class BaseJavaCodecHelper implements JavaCodecHelper {
         return this.recipeTypes.get(key);
     }
 
+    @Override
+    public final <T> PositionSourceType<T> getPositionSourceType(Key key) {
+        return (PositionSourceType<T>) this.positionSourceTypes.get(key);
+    }
+
     protected final void registerRecipeType(RecipeType<? extends Recipe> type) {
         this.recipeTypes.put(type.getIdentifier(), type);
+    }
+
+    protected final void registerPositionSourceType(PositionSourceType<?> type) {
+        this.positionSourceTypes.put(type.getIdentifier(), type);
     }
 
 }

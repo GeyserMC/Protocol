@@ -330,7 +330,7 @@ public class Java_v754 {
             .insert(32, MobEffectType.HERO_OF_THE_VILLAGE)
             .build();
 
-    public static final JavaCodec V754_CODEC = JavaCodec.builder()
+    public static final JavaCodec CODEC = JavaCodec.builder()
             .protocolVersion(754)
             .minecraftVersion("1.16.4/5")
             .helper(() -> new JavaCodecHelper_v754(ENTITY_TYPES, BLOCK_ENTITY_ACTIONS, CONTAINER_TYPES, ENTITY_DATA_TYPES, POSES, PARTICLES, MOB_EFFECTS))

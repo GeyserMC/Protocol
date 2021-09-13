@@ -1,0 +1,185 @@
+package org.cloudburstmc.protocol.java.codec.v755;
+
+import org.cloudburstmc.protocol.java.codec.JavaCodec;
+import org.cloudburstmc.protocol.java.codec.v754.JavaCodecHelper_v754;
+import org.cloudburstmc.protocol.java.codec.v754.Java_v754;
+import org.cloudburstmc.protocol.java.codec.v754.serializer.play.ChangeDifficultySerializer_v754;
+import org.cloudburstmc.protocol.java.codec.v754.serializer.play.ChatSerializer_v754;
+import org.cloudburstmc.protocol.java.codec.v754.serializer.play.ContainerAckSerializer_v754;
+import org.cloudburstmc.protocol.java.codec.v754.serializer.play.ContainerCloseSerializer_v754;
+import org.cloudburstmc.protocol.java.codec.v754.serializer.play.CustomPayloadSerializer_v754;
+import org.cloudburstmc.protocol.java.codec.v754.serializer.play.KeepAliveSerializer_v754;
+import org.cloudburstmc.protocol.java.codec.v754.serializer.play.MoveVehicleSerializer_v754;
+import org.cloudburstmc.protocol.java.codec.v754.serializer.play.PlayerAbilitiesSerializer_v754;
+import org.cloudburstmc.protocol.java.codec.v754.serializer.play.ResourcePackSerializer_v754;
+import org.cloudburstmc.protocol.java.codec.v754.serializer.play.SetCarriedItemSerializer_v754;
+import org.cloudburstmc.protocol.java.codec.v754.serializer.play.clientbound.*;
+import org.cloudburstmc.protocol.java.codec.v754.serializer.play.serverbound.*;
+import org.cloudburstmc.protocol.java.packet.State;
+import org.cloudburstmc.protocol.java.packet.play.ChangeDifficultyPacket;
+import org.cloudburstmc.protocol.java.packet.play.ChatPacket;
+import org.cloudburstmc.protocol.java.packet.play.ContainerAckPacket;
+import org.cloudburstmc.protocol.java.packet.play.ContainerClosePacket;
+import org.cloudburstmc.protocol.java.packet.play.CustomPayloadPacket;
+import org.cloudburstmc.protocol.java.packet.play.KeepAlivePacket;
+import org.cloudburstmc.protocol.java.packet.play.MoveVehiclePacket;
+import org.cloudburstmc.protocol.java.packet.play.PlayerAbilitiesPacket;
+import org.cloudburstmc.protocol.java.packet.play.ResourcePackPacket;
+import org.cloudburstmc.protocol.java.packet.play.SetCarriedItemPacket;
+import org.cloudburstmc.protocol.java.packet.play.clientbound.*;
+import org.cloudburstmc.protocol.java.packet.play.serverbound.*;
+
+public class Java_v755 extends Java_v754 {
+
+    public static JavaCodec CODEC = Java_v754.CODEC.toBuilder()
+            .protocolVersion(755)
+            .minecraftVersion("1.17")
+            .helper(() -> new JavaCodecHelper_v755(ENTITY_TYPES, BLOCK_ENTITY_ACTIONS, CONTAINER_TYPES, ENTITY_DATA_TYPES, POSES, PARTICLES, MOB_EFFECTS))
+            .codec(State.HANDSHAKING, Java_v754.CODEC.getCodec(State.HANDSHAKING))
+            .codec(State.STATUS, Java_v754.CODEC.getCodec(State.STATUS))
+            .codec(State.LOGIN, Java_v754.CODEC.getCodec(State.LOGIN))
+            .codec(State.PLAY, JavaCodec.JavaStateCodec.builder()
+                    .registerClientboundPacket(AddEntityPacket.class, AddEntitySerializer_v754.INSTANCE, 0)
+                    .registerClientboundPacket(AddExperienceOrbPacket.class, AddExperienceOrbSerializer_v754.INSTANCE, 1)
+                    .registerClientboundPacket(AddMobPacket.class, AddMobSerializer_v754.INSTANCE, 2)
+                    .registerClientboundPacket(AddPaintingPacket.class, AddPaintingSerializer_v754.INSTANCE, 3)
+                    .registerClientboundPacket(AddPlayerPacket.class, AddPlayerSerializer_v754.INSTANCE, 4)
+                    .registerClientboundPacket(AnimatePacket.class, AnimateSerializer_v754.INSTANCE, 5)
+                    .registerClientboundPacket(AwardStatsPacket.class, AwardStatsSerializer_v754.INSTANCE, 6)
+                    .registerClientboundPacket(BlockBreakAckPacket.class, BlockBreakAckSerializer_v754.INSTANCE, 7)
+                    .registerClientboundPacket(BlockDestructionPacket.class, BlockDestructionSerializer_v754.INSTANCE, 8)
+                    .registerClientboundPacket(BlockEntityDataPacket.class, BlockEntityDataSerializer_v754.INSTANCE, 9)
+                    .registerClientboundPacket(BlockEventPacket.class, BlockEventSerializer_v754.INSTANCE, 10)
+                    .registerClientboundPacket(BlockUpdatePacket.class, BlockUpdateSerializer_v754.INSTANCE, 11)
+                    .registerClientboundPacket(BossEventPacket.class, BossEventSerializer_v754.INSTANCE, 12)
+                    .registerClientboundPacket(ChangeDifficultyPacket.class, ChangeDifficultySerializer_v754.INSTANCE, 13)
+                    .registerClientboundPacket(ChatPacket.class, ChatSerializer_v754.INSTANCE, 14)
+                    .registerClientboundPacket(CommandSuggestionsPacket.class, CommandSuggestionsSerializer_v754.INSTANCE, 15)
+                    .registerClientboundPacket(CommandsPacket.class, CommandsSerializer_v754.INSTANCE, 16)
+                    .registerClientboundPacket(ContainerAckPacket.class, ContainerAckSerializer_v754.INSTANCE, 17)
+                    .registerClientboundPacket(ContainerClosePacket.class, ContainerCloseSerializer_v754.INSTANCE, 18)
+                    .registerClientboundPacket(ContainerSetContentPacket.class, ContainerSetContentSerializer_v754.INSTANCE, 19)
+                    .registerClientboundPacket(ContainerSetDataPacket.class, ContainerSetDataSerializer_v754.INSTANCE, 20)
+                    .registerClientboundPacket(ContainerSetSlotPacket.class, ContainerSetSlotSerializer_v754.INSTANCE, 21)
+                    .registerClientboundPacket(CooldownPacket.class, CooldownSerializer_v754.INSTANCE, 22)
+                    .registerClientboundPacket(CustomPayloadPacket.class, CustomPayloadSerializer_v754.INSTANCE, 23)
+                    .registerClientboundPacket(CustomSoundPacket.class, CustomSoundSerializer_v754.INSTANCE, 24)
+                    .registerClientboundPacket(org.cloudburstmc.protocol.java.packet.play.clientbound.DisconnectPacket.class, org.cloudburstmc.protocol.java.codec.v754.serializer.play.clientbound.DisconnectSerializer_v754.INSTANCE, 25)
+                    .registerClientboundPacket(EntityEventPacket.class, EntityEventSerializer_v754.INSTANCE, 26)
+                    .registerClientboundPacket(ExplodePacket.class, ExplodeSerializer_v754.INSTANCE, 27)
+                    .registerClientboundPacket(ForgetLevelChunkPacket.class, ForgetLevelChunkSerializer_v754.INSTANCE, 28)
+                    .registerClientboundPacket(GameEventPacket.class, GameEventSerializer_v754.INSTANCE, 29)
+                    .registerClientboundPacket(HorseScreenOpenPacket.class, HorseScreenOpenSerializer_v754.INSTANCE, 30)
+                    .registerClientboundPacket(KeepAlivePacket.class, KeepAliveSerializer_v754.INSTANCE, 31)
+                    .registerClientboundPacket(LevelChunkPacket.class, LevelChunkSerializer_v754.INSTANCE, 32)
+                    .registerClientboundPacket(LevelEventPacket.class, LevelEventSerializer_v754.INSTANCE, 33)
+                    .registerClientboundPacket(LevelParticlesPacket.class, LevelParticlesSerializer_v754.INSTANCE, 34)
+                    .registerClientboundPacket(LightUpdatePacket.class, LightUpdateSerializer_v754.INSTANCE, 35)
+                    .registerClientboundPacket(LoginPacket.class, LoginSerializer_v754.INSTANCE, 36)
+                    .registerClientboundPacket(MapItemDataPacket.class, MapItemDataSerializer_v754.INSTANCE, 37)
+                    .registerClientboundPacket(MerchantOffersPacket.class, MerchantOffersSerializer_v754.INSTANCE, 38)
+                    .registerClientboundPacket(MoveEntityPacket.Pos.class, MoveEntitySerializer_v754.Pos.INSTANCE, 39)
+                    .registerClientboundPacket(MoveEntityPacket.PosRot.class, MoveEntitySerializer_v754.PosRot.INSTANCE, 40)
+                    .registerClientboundPacket(MoveEntityPacket.Rot.class, MoveEntitySerializer_v754.Rot.INSTANCE, 41)
+                    .registerClientboundPacket(MoveEntityPacket.class, MoveEntitySerializer_v754.Noop.INSTANCE, 42)
+                    .registerClientboundPacket(MoveVehiclePacket.class, MoveVehicleSerializer_v754.INSTANCE, 43)
+                    .registerClientboundPacket(OpenBookPacket.class, OpenBookSerializer_v754.INSTANCE, 44)
+                    .registerClientboundPacket(OpenScreenPacket.class, OpenScreenSerializer_v754.INSTANCE, 45)
+                    .registerClientboundPacket(OpenSignEditorPacket.class, OpenSignEditorSerializer_v754.INSTANCE, 46)
+                    .registerClientboundPacket(PlaceGhostRecipePacket.class, PlaceGhostRecipeSerializer_v754.INSTANCE, 47)
+                    .registerClientboundPacket(PlayerAbilitiesPacket.class, PlayerAbilitiesSerializer_v754.INSTANCE, 48)
+                    .registerClientboundPacket(PlayerCombatPacket.class, PlayerCombatSerializer_v754.INSTANCE, 49)
+                    .registerClientboundPacket(PlayerInfoPacket.class, PlayerInfoSerializer_v754.INSTANCE, 50)
+                    .registerClientboundPacket(PlayerLookAtPacket.class, PlayerLookAtSerializer_v754.INSTANCE, 51)
+                    .registerClientboundPacket(PlayerPositionPacket.class, PlayerPositionSerializer_v754.INSTANCE, 52)
+                    .registerClientboundPacket(RecipePacket.class, RecipeSerializer_v754.INSTANCE, 53)
+                    .registerClientboundPacket(RemoveEntitiesPacket.class, RemoveEntitiesSerializer_v754.INSTANCE, 54)
+                    .registerClientboundPacket(RemoveMobEffectPacket.class, RemoveMobEffectSerializer_v754.INSTANCE, 55)
+                    .registerClientboundPacket(ResourcePackPacket.class, ResourcePackSerializer_v754.INSTANCE, 56)
+                    .registerClientboundPacket(RespawnPacket.class, RespawnSerializer_v754.INSTANCE, 57)
+                    .registerClientboundPacket(RotateHeadPacket.class, RotateHeadSerializer_v754.INSTANCE, 58)
+                    .registerClientboundPacket(SectionBlocksUpdatePacket.class, SectionBlocksUpdateSerializer_v754.INSTANCE, 59)
+                    .registerClientboundPacket(SelectAdvancementsTabPacket.class, SelectAdvancementsTabSerializer_v754.INSTANCE, 60)
+                    .registerClientboundPacket(SetBorderPacket.class, SetBorderSerializer_v754.INSTANCE, 61)
+                    .registerClientboundPacket(SetCameraPacket.class, SetCameraSerializer_v754.INSTANCE, 62)
+                    .registerClientboundPacket(SetCarriedItemPacket.class, SetCarriedItemSerializer_v754.INSTANCE, 63)
+                    .registerClientboundPacket(SetChunkCacheCenterPacket.class, SetChunkCacheCenterSerializer_v754.INSTANCE, 64)
+                    .registerClientboundPacket(SetChunkCacheRadiusPacket.class, SetChunkCacheRadiusSerializer_v754.INSTANCE, 65)
+                    .registerClientboundPacket(SetDefaultSpawnPositionPacket.class, SetDefaultSpawnPositionSerializer_v754.INSTANCE, 66)
+                    .registerClientboundPacket(SetDisplayObjectivePacket.class, SetDisplayObjectiveSerializer_v754.INSTANCE, 67)
+                    .registerClientboundPacket(SetEntityDataPacket.class, SetEntityDataSerializer_v754.INSTANCE, 68)
+                    .registerClientboundPacket(SetEntityLinkPacket.class, SetEntityLinkSerializer_v754.INSTANCE, 69)
+                    .registerClientboundPacket(SetEntityMotionPacket.class, SetEntityMotionSerializer_v754.INSTANCE, 70)
+                    .registerClientboundPacket(SetEquipmentPacket.class, SetEquipmentSerializer_v754.INSTANCE, 71)
+                    .registerClientboundPacket(SetExperiencePacket.class, SetExperienceSerializer_v754.INSTANCE, 72)
+                    .registerClientboundPacket(SetHealthPacket.class, SetHealthSerializer_v754.INSTANCE, 73)
+                    .registerClientboundPacket(SetObjectivePacket.class, SetObjectiveSerializer_v754.INSTANCE, 74)
+                    .registerClientboundPacket(SetPassengersPacket.class, SetPassengersSerializer_v754.INSTANCE, 75)
+                    .registerClientboundPacket(SetPlayerTeamPacket.class, SetPlayerTeamSerializer_v754.INSTANCE, 76)
+                    .registerClientboundPacket(SetScorePacket.class, SetScoreSerializer_v754.INSTANCE, 77)
+                    .registerClientboundPacket(SetTimePacket.class, SetTimeSerializer_v754.INSTANCE, 78)
+                    .registerClientboundPacket(SetTitlesPacket.class, SetTitlesSerializer_v754.INSTANCE, 79)
+                    .registerClientboundPacket(SoundEntityPacket.class, SoundEntitySerializer_v754.INSTANCE, 80)
+                    .registerClientboundPacket(SoundPacket.class, SoundSerializer_v754.INSTANCE, 81)
+                    .registerClientboundPacket(StopSoundPacket.class, StopSoundSerializer_v754.INSTANCE, 82)
+                    .registerClientboundPacket(TabListPacket.class, TabListSerializer_v754.INSTANCE, 83)
+                    .registerClientboundPacket(TagQueryPacket.class, TagQuerySerializer_v754.INSTANCE, 84)
+                    .registerClientboundPacket(TakeItemEntityPacket.class, TakeItemEntitySerializer_v754.INSTANCE, 85)
+                    .registerClientboundPacket(TeleportEntityPacket.class, TeleportEntitySerializer_v754.INSTANCE, 86)
+                    .registerClientboundPacket(UpdateAdvancementsPacket.class, UpdateAdvancementsSerializer_v754.INSTANCE, 87)
+                    .registerClientboundPacket(UpdateAttributesPacket.class, UpdateAttributesSerializer_v754.INSTANCE, 88)
+                    .registerClientboundPacket(UpdateMobEffectPacket.class, UpdateMobEffectSerializer_v754.INSTANCE, 89)
+                    .registerClientboundPacket(UpdateRecipesPacket.class, UpdateRecipesSerializer_v754.INSTANCE, 90)
+                    .registerClientboundPacket(UpdateTagsPacket.class, UpdateTagsSerializer_v754.INSTANCE, 91)
+
+                    .registerServerboundPacket(AcceptTeleportationPacket.class, AcceptTeleportationSerializer_v754.INSTANCE, 0)
+                    .registerServerboundPacket(BlockEntityTagQueryPacket.class, BlockEntityTagQuerySerializer_v754.INSTANCE, 1)
+                    .registerServerboundPacket(ChangeDifficultyPacket.class, ChangeDifficultySerializer_v754.INSTANCE, 2)
+                    .registerServerboundPacket(ChatPacket.class, ChatSerializer_v754.INSTANCE, 3)
+                    .registerServerboundPacket(ClientCommandPacket.class, ClientCommandSerializer_v754.INSTANCE, 4)
+                    .registerServerboundPacket(ClientInformationPacket.class, ClientInformationSerializer_v754.INSTANCE, 5)
+                    .registerServerboundPacket(CommandSuggestionPacket.class, CommandSuggestionSerializer_v754.INSTANCE, 6)
+                    .registerServerboundPacket(ContainerAckPacket.class, ContainerAckSerializer_v754.INSTANCE, 7)
+                    .registerServerboundPacket(ContainerButtonClickPacket.class, ContainerButtonClickSerializer_754.INSTANCE, 8)
+                    .registerServerboundPacket(ContainerClickPacket.class, ContainerClickSerializer_v754.INSTANCE, 9)
+                    .registerServerboundPacket(ContainerClosePacket.class, ContainerCloseSerializer_v754.INSTANCE, 10)
+                    .registerServerboundPacket(CustomPayloadPacket.class, CustomPayloadSerializer_v754.INSTANCE, 11)
+                    .registerServerboundPacket(EditBookPacket.class, EditBookSerializer_v754.INSTANCE, 12)
+                    .registerServerboundPacket(EntityTagQueryPacket.class, EntityTagQuerySerializer_v754.INSTANCE, 13)
+                    .registerServerboundPacket(InteractPacket.class, InteractSerializer_v754.INSTANCE, 14)
+                    .registerServerboundPacket(JigsawGeneratePacket.class, JigsawGenerateSerializer_v754.INSTANCE, 15)
+                    .registerServerboundPacket(KeepAlivePacket.class, KeepAliveSerializer_v754.INSTANCE, 16)
+                    .registerServerboundPacket(LockDifficultyPacket.class, LockDifficultySerializer_v754.INSTANCE, 17)
+                    .registerServerboundPacket(MovePlayerPacket.Pos.class, MovePlayerSerializer_v754.Pos.INSTANCE, 18)
+                    .registerServerboundPacket(MovePlayerPacket.PosRot.class, MovePlayerSerializer_v754.PosRot.INSTANCE, 19)
+                    .registerServerboundPacket(MovePlayerPacket.Rot.class, MovePlayerSerializer_v754.Rot.INSTANCE, 20)
+                    .registerServerboundPacket(MovePlayerPacket.class, MovePlayerSerializer_v754.OnGround.INSTANCE, 21)
+                    .registerServerboundPacket(MoveVehiclePacket.class, MoveVehicleSerializer_v754.INSTANCE, 22)
+                    .registerServerboundPacket(PaddleBoatPacket.class, PaddleBoatSerializer_v754.INSTANCE, 23)
+                    .registerServerboundPacket(PickItemPacket.class, PickItemSerializer_v754.INSTANCE, 24)
+                    .registerServerboundPacket(PlaceRecipePacket.class, PlaceRecipeSerializer_v754.INSTANCE, 25)
+                    .registerServerboundPacket(PlayerAbilitiesPacket.class, PlayerAbilitiesSerializer_v754.INSTANCE, 26)
+                    .registerServerboundPacket(PlayerActionPacket.class, PlayerActionSerializer_v754.INSTANCE, 27)
+                    .registerServerboundPacket(PlayerCommandPacket.class, PlayerCommandSerializer_v754.INSTANCE, 28)
+                    .registerServerboundPacket(PlayerInputPacket.class, PlayerInputSerializer_v754.INSTANCE, 29)
+                    .registerServerboundPacket(RecipeBookChangeSettingsPacket.class, RecipeBookChangeSettingsSerializer_v754.INSTANCE, 30)
+                    .registerServerboundPacket(RecipeBookSeenRecipePacket.class, RecipeBookSeenRecipeSerializer_v754.INSTANCE, 31)
+                    .registerServerboundPacket(RenameItemPacket.class, RenameItemSerializer_v754.INSTANCE, 32)
+                    .registerServerboundPacket(ResourcePackPacket.class, ResourcePackSerializer_v754.INSTANCE, 33)
+                    .registerServerboundPacket(SeenAdvancementsPacket.class, SeenAdvancementsSerializer_v754.INSTANCE, 34)
+                    .registerServerboundPacket(SelectTradePacket.class, SelectTradeSerializer_v754.INSTANCE, 35)
+                    .registerServerboundPacket(SetBeaconPacket.class, SetBeaconSerializer_v754.INSTANCE, 36)
+                    .registerServerboundPacket(SetCarriedItemPacket.class, SetCarriedItemSerializer_v754.INSTANCE, 37)
+                    .registerServerboundPacket(SetCommandBlockPacket.class, SetCommandBlockSerializer_v754.INSTANCE, 38)
+                    .registerServerboundPacket(SetCommandMinecartPacket.class, SetCommandMinecartSerializer_v754.INSTANCE, 39)
+                    .registerServerboundPacket(SetCreativeModeSlotPacket.class, SetCreativeModeSlotSerializer_v754.INSTANCE, 40)
+                    .registerServerboundPacket(SetJigsawBlockPacket.class, SetJigsawBlockSerializer_v754.INSTANCE, 41)
+                    .registerServerboundPacket(SetStructureBlockPacket.class, SetStructureBlockSerializer_v754.INSTANCE, 42)
+                    .registerServerboundPacket(SignUpdatePacket.class, SignUpdateSerializer_v754.INSTANCE, 43)
+                    .registerServerboundPacket(SwingPacket.class, SwingPacketSerializer_v754.INSTANCE, 44)
+                    .registerServerboundPacket(TeleportToEntityPacket.class, TeleportToEntitySerializer_v754.INSTANCE, 45)
+                    .registerServerboundPacket(UseItemOnPacket.class, UseItemOnSerializer_v754.INSTANCE, 46)
+                    .registerServerboundPacket(UseItemPacket.class, UseItemSerializer_v754.INSTANCE, 47)
+                    .build())
+            .build();
+}

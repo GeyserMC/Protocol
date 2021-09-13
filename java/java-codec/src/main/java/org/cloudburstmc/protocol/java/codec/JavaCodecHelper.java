@@ -19,6 +19,8 @@ import org.cloudburstmc.protocol.java.data.profile.GameProfile;
 import org.cloudburstmc.protocol.java.data.world.BlockEntityAction;
 import org.cloudburstmc.protocol.java.data.world.Particle;
 import org.cloudburstmc.protocol.java.data.world.ParticleType;
+import org.cloudburstmc.protocol.java.data.world.PositionSource;
+import org.cloudburstmc.protocol.java.data.world.PositionSourceType;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
@@ -116,6 +118,10 @@ public interface JavaCodecHelper {
 
     void writeBlockPosition(ByteBuf buffer, Vector3i vector3i);
 
+    <T> PositionSource<T> readPositionSource(ByteBuf buffer);
+
+    <T> void writePositionSource(ByteBuf buffer, PositionSource<T> positionSource);
+
     <T> void readArray(ByteBuf buffer, Collection<T> array, BiFunction<ByteBuf, JavaCodecHelper, T> function);
 
     <T> void writeArray(ByteBuf buffer, Collection<T> array, TriConsumer<ByteBuf, JavaCodecHelper, T> biConsumer);
@@ -188,5 +194,9 @@ public interface JavaCodecHelper {
 
     RecipeType<? extends Recipe> getRecipeType(Key key);
 
+    <T> PositionSourceType<T> getPositionSourceType(Key key);
+
     void registerRecipeTypes();
+
+    void registerPositionSourceTypes();
 }

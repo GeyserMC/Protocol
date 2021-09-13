@@ -1,6 +1,5 @@
 package org.cloudburstmc.protocol.java.codec.v754;
 
-import net.kyori.adventure.key.Key;
 import org.cloudburstmc.protocol.common.util.TypeMap;
 import org.cloudburstmc.protocol.java.codec.BaseJavaCodecHelper;
 import org.cloudburstmc.protocol.java.data.crafting.RecipeType;
@@ -18,6 +17,8 @@ public class JavaCodecHelper_v754 extends BaseJavaCodecHelper {
                                 TypeMap<ContainerType> containerTypes, TypeMap<EntityDataType<?>> entityDataTypes,
                                 TypeMap<Pose> poses, TypeMap<ParticleType> particles, TypeMap<MobEffectType> mobEffects) {
         super(entityTypes, blockEntityActions, containerTypes, entityDataTypes, poses, particles, mobEffects);
+
+        this.registerRecipeTypes();
     }
 
     @Override
@@ -44,5 +45,10 @@ public class JavaCodecHelper_v754 extends BaseJavaCodecHelper {
         this.registerRecipeType(RecipeType.CAMPFIRE_COOKING);
         this.registerRecipeType(RecipeType.STONECUTTING);
         this.registerRecipeType(RecipeType.SMITHING);
+    }
+
+    @Override
+    public void registerPositionSourceTypes() {
+        throw new UnsupportedOperationException();
     }
 }

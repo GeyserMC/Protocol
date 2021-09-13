@@ -27,6 +27,10 @@ public interface JavaPlayPacketHandler extends JavaPacketHandler {
         return PacketSignal.UNHANDLED;
     }
 
+    default PacketSignal handle(AddVibrationSignalPacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
+
     default PacketSignal handle(AnimatePacket packet) {
         return PacketSignal.UNHANDLED;
     }
@@ -56,6 +60,10 @@ public interface JavaPlayPacketHandler extends JavaPacketHandler {
     }
 
     default PacketSignal handle(BossEventPacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
+
+    default PacketSignal handle(ClearTitlesPacket packet) {
         return PacketSignal.UNHANDLED;
     }
 
@@ -115,6 +123,10 @@ public interface JavaPlayPacketHandler extends JavaPacketHandler {
         return PacketSignal.UNHANDLED;
     }
 
+    default PacketSignal handle(InitializeBorderPacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
+
     default PacketSignal handle(LevelChunkPacket packet) {
         return PacketSignal.UNHANDLED;
     }
@@ -167,11 +179,27 @@ public interface JavaPlayPacketHandler extends JavaPacketHandler {
         return PacketSignal.UNHANDLED;
     }
 
+    default PacketSignal handle(PingPacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
+
     default PacketSignal handle(PlaceGhostRecipePacket packet) {
         return PacketSignal.UNHANDLED;
     }
 
     default PacketSignal handle(PlayerCombatPacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
+
+    default PacketSignal handle(PlayerCombatEndPacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
+
+    default PacketSignal handle(PlayerCombatEnterPacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
+
+    default PacketSignal handle(PlayerCombatKillPacket packet) {
         return PacketSignal.UNHANDLED;
     }
 
@@ -192,6 +220,10 @@ public interface JavaPlayPacketHandler extends JavaPacketHandler {
     }
 
     default PacketSignal handle(RemoveEntitiesPacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
+
+    default PacketSignal handle(RemoveEntityPacket packet) {
         return PacketSignal.UNHANDLED;
     }
 
