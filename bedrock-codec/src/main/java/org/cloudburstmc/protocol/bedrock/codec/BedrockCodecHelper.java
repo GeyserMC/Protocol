@@ -123,6 +123,10 @@ public interface BedrockCodecHelper {
 
     void writeGameRule(ByteBuf buffer, GameRuleData<?> gameRule);
 
+    void writeGameRuleInStartGame(ByteBuf buffer, GameRuleData<?> gameRule);
+
+    GameRuleData<?> readGameRuleInStartGame(ByteBuf buffer);
+
     void readEntityData(ByteBuf buffer, EntityDataMap entityData);
 
     void writeEntityData(ByteBuf buffer, EntityDataMap entityData);
